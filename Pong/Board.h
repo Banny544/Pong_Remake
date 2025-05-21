@@ -1,10 +1,15 @@
 #pragma once
+#include <SDL.h>
+
 class Board
 {
-	double Player1_scoue;
-	double Player2_scoue;
+private:
+    double Player1_score;
+    double Player2_score;
+    SDL_Rect boardRect;
+    SDL_Color boardColor;
 
-	public:
-		Board();
+public:
+    Board(int x, int y, int w, int h, SDL_Color color);
+    void render(SDL_Renderer* renderer);
 };
-
