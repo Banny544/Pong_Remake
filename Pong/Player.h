@@ -1,6 +1,5 @@
 #pragma once
-
-class Ball {
+class Player {
 private:
     double Width;
     double Height;
@@ -8,5 +7,5 @@ private:
     double Speed;
 
 public:
-    Ball(); 
+    Palyer();
 };

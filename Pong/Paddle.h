@@ -1,5 +1,12 @@
 #pragma once
-class Paddle
-{
-};
 
+class Paddle {
+private:
+    double Width;
+    double Height;
+    double Position;
+    double Speed;
+
+public:
+    Paddle();
+};

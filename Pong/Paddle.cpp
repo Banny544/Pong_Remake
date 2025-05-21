@@ -2,18 +2,13 @@
 #include <iostream>
 using namespace std;
 
-class Paddle {
-private:
-    double Width;
-    double Height;
-    double Postion;
-public:
 
-    Paddle() {
-        Width = 0.2;
-        Height = 1;
-    }
+Paddle::Paddle() {
 
+    Width = 0.2;
+    Height = 1;
+    Position = 0; 
+    Speed = 1;
 
-};
+}
 
