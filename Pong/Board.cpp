@@ -17,8 +17,6 @@ int Board::getPlayer2Score() const {
     return static_cast<int>(Player2_score);
 }
 
-
-
 const std::array<std::array<bool, 7>, 10> segmentMap = { {
     {1,1,1,1,1,1,0}, // 0
     {0,1,1,0,0,0,0}, // 1
@@ -35,6 +33,10 @@ const std::array<std::array<bool, 7>, 10> segmentMap = { {
 void drawSegment(SDL_Renderer* renderer, SDL_Rect rect) {
     SDL_RenderFillRect(renderer, &rect);
 }
+
+// -------- Segment Mapping for 7-Segment Digits --------
+
+
 /*
    -- A --
   |       |
@@ -47,6 +49,7 @@ void drawSegment(SDL_Renderer* renderer, SDL_Rect rect) {
    -- D --
 */
 
+// Draw one filled rectangle segment
 void drawDigit(SDL_Renderer* renderer, int digit, int x, int y, int scale, SDL_Color color) {
     if (digit < 0 || digit > 9) return;
 
@@ -71,12 +74,15 @@ void drawDigit(SDL_Renderer* renderer, int digit, int x, int y, int scale, SDL_C
     if (segs[6]) drawSegment(renderer, G);
 }
 
+// Constructor for board
 Board::Board(int x, int y, int w, int h, SDL_Color color)
     : boardColor(color), Player1_score(0), Player2_score(0)
 {
     boardRect = { x, y, w, h };
 }
 
+
+// Render the game board with borders and score display
 void Board::render(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, boardColor.r, boardColor.g, boardColor.b, boardColor.a);
 
@@ -115,17 +121,18 @@ void Board::render(SDL_Renderer* renderer) {
 
 }
 
+// Check if ball touched left or right wall and update score
 bool Board::checkWallCollision(int ballX, int ballWidth) {
     int rightWallX = boardRect.w;
     int leftWallX = 0;
 
     if (ballX <= leftWallX) {
         Player2_score += 1;
-        return true;  // scored
+        return true;   // Red missed ? Blue scores
     }
     else if (ballX + ballWidth >= rightWallX) {
         Player1_score += 1;
-        return true;  // scored
+        return true;  // Blue missed ? Red scores
     }
     return false;
 }

@@ -20,5 +20,12 @@ public:
 
     void reset();
 
+    void bounceLeft();
+    int getY() const;
+    int getHeight() const;
+
+    void bounceRight();
+
+
 
 };
