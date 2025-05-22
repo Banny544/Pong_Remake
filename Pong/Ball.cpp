@@ -1,8 +1,27 @@
 #include "Ball.h"
+#include <cstdlib>
+#include <ctime>
 
-Ball::Ball(float startX, float startY, float width, float height, float velX, float velY, SDL_Color color)
-    : x(startX), y(startY), w(width), h(height), vx(velX), vy(velY), color(color)
-{}
+void Ball::reset() {
+    // Reset to center
+    x = 400 - w / 2;
+    y = 300 - h / 2;
+
+    // Randomize direction
+    vx = (std::rand() % 2 == 0) ? 4.0f : -4.0f;
+    vy = static_cast<float>((std::rand() % 5) - 2);  // -2 to +2
+}
+
+int Ball::getX() const { return static_cast<int>(x); }
+int Ball::getWidth() const { return static_cast<int>(w); }
+
+
+Ball::Ball(float width, float height, SDL_Color color)
+    : w(width), h(height), color(color)
+{
+    reset();  // center and randomize velocity
+}
+
 
 void Ball::update() {
     x += vx;

@@ -9,7 +9,16 @@ private:
     SDL_Color color;
 
 public:
-    Ball(float startX, float startY, float width, float height, float velX, float velY, SDL_Color color);
+    Ball(float width, float height, SDL_Color color);
+ 
+
     void update();
     void render(SDL_Renderer* renderer);
+   
+    int getX() const;
+    int getWidth() const;
+
+    void reset();
+
+
 };

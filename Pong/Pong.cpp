@@ -1,10 +1,13 @@
 #include <iostream>
+#include <windows.h>
+
 #include <SDL.h>
 #include <cstdlib>  
 #include <ctime>
 
 #include "Board.h"
 #include "Ball.h"
+#include <array>
 
 
 int main(int argc, char* argv[]) {
@@ -15,16 +18,10 @@ int main(int argc, char* argv[]) {
     SDL_Color White = { 255, 255, 255, 255 };
     Board board(0, 0, 800, 600, White);
 
-    // Seed random once
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+   
+    Ball ball(10, 10, White);
 
-    // Generate random direction
-    float vx = (std::rand() % 2 == 0) ? 4.0f : -4.0f;
-    float vy = static_cast<float>((std::rand() % 5) - 2);  
-
-
-    //spawn ball in the center of the board
-    Ball ball(400, 300, 10, 10, vx, vy, White);  
+    ball.reset();
 
     bool running = true;
     SDL_Event e;
@@ -42,6 +39,21 @@ int main(int argc, char* argv[]) {
 
         board.render(renderer);
         ball.render(renderer); 
+        if (board.checkWallCollision(ball.getX(), ball.getWidth())) {
+            SDL_Delay(500);  // pause for .5 second after scoring
+            ball.reset();     // reset to center
+
+            if (board.getPlayer1Score() > 9) {
+                MessageBoxA(nullptr, "Red Team Wins!", "You Win", MB_OK | MB_ICONINFORMATION);
+                running = false;
+            }
+            else if (board.getPlayer2Score() > 9) {
+                MessageBoxA(nullptr, "Blue Team Wins!", "You Lose", MB_OK | MB_ICONWARNING);
+                running = false;
+        }
+
+        }
+
 
         SDL_RenderPresent(renderer);
         SDL_Delay(16);  
