@@ -20,11 +20,22 @@ void Board::render(SDL_Renderer* renderer) {
     SDL_RenderFillRect(renderer, &bottom);
 
     // Left edge
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); //blue
     SDL_Rect left = { 0, 0, thickness, boardRect.h };
     SDL_RenderFillRect(renderer, &left);
 
     // Right edge
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//red
     SDL_Rect right = { boardRect.w - thickness, 0, thickness, boardRect.h };
     SDL_RenderFillRect(renderer, &right);
+
+    // Vertical center line
+    int centerX = boardRect.w / 2;
+    int center_line_thickness = 2;
+
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
+    SDL_Rect lineRect = { centerX - center_line_thickness / 2, 0, center_line_thickness, boardRect.h };
+    SDL_RenderFillRect(renderer, &lineRect);
+
 }
 

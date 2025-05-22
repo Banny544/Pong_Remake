@@ -1,13 +1,20 @@
 #include "Ball.h"
-#include <iostream>
-using namespace std;
 
+Ball::Ball(float startX, float startY, float width, float height, float velX, float velY, SDL_Color color)
+    : x(startX), y(startY), w(width), h(height), vx(velX), vy(velY), color(color)
+{}
 
-Ball::Ball() {
+void Ball::update() {
+    x += vx;
+    y += vy;
 
-    Width = 0.2;
-    Height = 0.2;
-    Position = 0;
-    Speed = 1;
+    // Bounce off window borders 
+    if (x <= 0 || x + w >= 800) vx = -vx;
+    if (y <= 0 || y + h >= 600) vy = -vy;
+}
 
+void Ball::render(SDL_Renderer* renderer) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_Rect rect = { static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h) };
+    SDL_RenderFillRect(renderer, &rect);
 }

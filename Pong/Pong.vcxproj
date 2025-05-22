@@ -135,6 +135,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="Pong.cpp" />
+    <ClCompile Include="pong.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
